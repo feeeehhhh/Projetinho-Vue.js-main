@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TODOLIST</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div id="app">
+        <div id="wrapper">
+            <h1>TODO.LIST</h1>
+            <div id="form-wrapper">
+                <div id="o-form">
+                    <input type="text" id="text-novo-item" v-model="textnovo" @keyup.enter="textnovo" maxlength="20">
+                    <div >
+                        <input type="checkbox" id="is-importante" v-model="novoImportante">
+                        <label for="is-importante"  > Importante</label><br>
+                    </div>
+                    <button @click="salvarItem" v-show="textnovo.length > 0">
+                        Salvar
+                    </button >
+                </div>
+                <p  id="contagem">{{ textnovo.length }}/20</p>
+            </div>
+
+            <div id="list-wrapper">
+                <div class="item" v-bind:class="{importante: i.importante,feito: i.feito}" v-for="i in lista"
+                v-on:click="i.feito = !i.feito">
+                    <p class="texto-item" v-text="i.texto "></p>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/vue@3.0.0-rc.5/dist/vue.global.js"></script>
+
+    <script>
+        Vue.createApp({
+            data() {
+                return {
+                    textnovo:"",
+                    novoImportante:false,
+
+                    lista:[
+  
+
+                        
+                    ]
+                }
+                
+            },
+            methods:{
+                 salvarItem(){
+                    let novoItem ={
+                        texto : this.textnovo,
+                        importante: this.novoImportante,
+                        feito:false,
+                    };
+                    this.lista.push(novoItem),
+                    this.textnovo = "",
+                    this.novoImportante = false;
+                }
+
+            },
+            computer:{
+                chdigitado(){
+                    return this.texnovo.length;
+                }
+
+            }
+
+        }).mount("#app")
+    </script>
+
+</body>
+
+</html>
